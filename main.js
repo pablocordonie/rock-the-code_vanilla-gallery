@@ -64,12 +64,36 @@ const setupCards = () => {
   });
 };
 
+// Alternativa 1
+
 fetch(TECHNOLOGIES_URL)
   .then((res) => res.json())
   .then((cardsData) => {
     cards = cardsData;
     setupCards();
+  })
+  .catch((err) => {
+    loadingElement.innerText = 'Carga fallida 😔️';
+    console.error(err);
   });
+
+// Alternativa 2
+
+const getTechnologies = async () => {
+  try {
+    throw new Error('Carga fallida 😔️');
+    const res = await fetch(TECHNOLOGIES_URL);
+    const cardsData = await res.json();
+
+    cards = cardsData;
+    setupCards();
+  } catch (err) {
+    loadingElement.innerText = `${err}`;
+  }
+};
+
+getTechnologies();
+
 */
 
 setupCards();
