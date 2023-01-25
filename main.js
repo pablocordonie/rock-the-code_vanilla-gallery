@@ -17,7 +17,6 @@ appElement.innerHTML += getContainerTemplate();
 
 const galleryElement = document.getElementById('rockTheCode-gallery');
 const loadingElement = document.querySelector('#rockTheCode-gallery > h1');
-let cards;
 
 const setupStars = (score) => {
 
@@ -45,15 +44,32 @@ const getCardTemplate = (card) => `
 `;
 
 const setupCards = () => {
+  loadingElement.remove();
+
+  MOCK_CARDS.forEach((card) => {
+    const template = getCardTemplate(card);
+    galleryElement.innerHTML += template;
+  });
+};
+
+/* En el caso de usar una API con cards...
+let cards;
+
+const setupCards = () => {
+  loadingElement.remove();
+
   cards.forEach((card) => {
     const template = getCardTemplate(card);
     galleryElement.innerHTML += template;
   });
 };
 
-/*const apiRequest = fetch(TECHNOLOGIES_URL);
-console.log(apiRequest);
+fetch(TECHNOLOGIES_URL)
+  .then((res) => res.json())
+  .then((cardsData) => {
+    cards = cardsData;
+    setupCards();
+  });
+*/
 
 setupCards();
-
-vídeo Proyecto Gallery -2 -> min. 05:40 */
