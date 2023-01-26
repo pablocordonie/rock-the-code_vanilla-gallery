@@ -1,4 +1,4 @@
-import { MOCK_CARDS, TECHNOLOGIES_URL } from './constants';
+import { MOCK_CARDS, /* TECHNOLOGIES_URL */ } from './constants';
 import './style.css';
 
 // Setup
@@ -8,7 +8,7 @@ const appElement = document.getElementById('app');
 const getModalTemplate = () => `
   <div id="rockTheCode-modal" class="rockTheCode-modal">
     <div class="modal-header">
-      <h2 id="modal-title">Modal Template</h2>
+      <h2 id="modal-title"></h2>
       <button id="modal-close">✖️</button>
     </div>
     <div class="modal-body"></div>
@@ -26,9 +26,13 @@ appElement.innerHTML += getModalTemplate();
 
 // Logic
 
-const galleryElement = document.getElementById('rockTheCode-gallery');
 const modalElement = document.getElementById('rockTheCode-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.querySelector('.modal-body');
+
+const galleryElement = document.getElementById('rockTheCode-gallery');
 const loadingElement = document.querySelector('#rockTheCode-gallery > h1');
+let currentCard;
 
 const setupStars = (score) => {
 
@@ -46,7 +50,7 @@ const setupStars = (score) => {
 };
 
 const getCardTemplate = (card) => `
-  <div class="card" role="button">
+  <div class="card" role="button" id="${card._id}">
     <h3>${card.name}</h3>
     <div class="image-container">
       <img src="${card.logo}" alt="${card.name}" />
@@ -108,7 +112,28 @@ getTechnologies();
 
 */
 
-const handleOpenModal = () => {
+const getModalBodyTemplate = (cardData) => `
+  <img src="${cardData.logo}" alt="${cardData.name}" />
+  <h3>Valoración de ${cardData.score.toFixed(2)} con ${cardData.reviews} reviews</h3>
+  <div class="review-container">
+    <button data-score="1">⭐️</button>
+    <button data-score="2">⭐️</button>
+    <button data-score="3">⭐️</button>
+    <button data-score="4">⭐️</button>
+    <button data-score="5">⭐️</button>
+  </div>
+`;
+
+const setupModalData = (cardData) => {
+  currentCard = cardData;
+  modalTitle.innerText = cardData.name;
+  modalBody.innerHTML = getModalBodyTemplate(cardData);
+};
+
+const handleOpenModal = (event) => {
+  const cardId = event.target.id;
+  const cardData = MOCK_CARDS.find((card) => card._id === cardId);
+  setupModalData(cardData);
   modalElement.style.display = 'block';
 };
 

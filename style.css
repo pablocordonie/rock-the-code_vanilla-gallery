@@ -37,6 +37,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+}
+
+.rockTheCode-gallery > .card * {
+  pointer-events: none;
 }
 
 .rockTheCode-gallery > .card > .image-container {
@@ -61,7 +66,27 @@ body {
   max-height: 60vh;
   width: 100%;
   z-index: 1;
-  background-color: var(--primary-color);
+  background-color: white;
+  color: var(--secondary-color);
+}
+
+.rockTheCode-modal button {
+  background-color: transparent;
+  border: 0;
+  font-size: 1.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.modal-body {
+  padding: 0.5rem 1rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
