@@ -20,6 +20,7 @@
 
 * {
   box-sizing: border-box;
+  position: relative;
   /* outline: 2px solid red; */
 }
 
@@ -48,4 +49,23 @@ body {
 
 .score-container > .star {
   font-size: 1.5rem;
+}
+
+.rockTheCode-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 15vh;
+  margin: 0 auto;
+  max-width: 90%;
+  max-height: 60vh;
+  width: 100%;
+  z-index: 1;
+  background-color: var(--primary-color);
+}
+
+@media screen and (min-width: 768px) {
+  .rockTheCode-modal {
+    max-width: 80%;
+  }
 }
