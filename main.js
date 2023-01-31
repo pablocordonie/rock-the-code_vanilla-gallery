@@ -1,4 +1,4 @@
-import { MOCK_CARDS, /* TECHNOLOGIES_URL */ } from './constants';
+import { TECHNOLOGIES_URL } from './constants';
 import './style.css';
 
 // Setup
@@ -33,6 +33,7 @@ const modalBody = document.querySelector('.modal-body');
 const galleryElement = document.getElementById('rockTheCode-gallery');
 const loadingElement = document.querySelector('#rockTheCode-gallery > h1');
 let currentCard;
+let cards;
 
 const setupStars = (score) => {
 
@@ -50,26 +51,14 @@ const setupStars = (score) => {
 };
 
 const getCardTemplate = (card) => `
-  <div class="card" role="button" id="${card._id}">
-    <h3>${card.name}</h3>
+  <div class="card" role="button" id="${card.login.uuid}">
+    <h3>${card.login.username}</h3>
     <div class="image-container">
-      <img src="${card.logo}" alt="${card.name}" />
+      <img src="${card.picture.medium}" alt="${card.login.username}" />
     </div>
     <div class="score-container">${setupStars(card.score)}</div>
   </div>
 `;
-
-const setupCards = () => {
-  loadingElement.remove();
-
-  MOCK_CARDS.forEach((card) => {
-    const template = getCardTemplate(card);
-    galleryElement.innerHTML += template;
-  });
-};
-
-/* En el caso de usar una API con cards...
-let cards;
 
 const setupCards = () => {
   loadingElement.remove();
@@ -85,7 +74,7 @@ const setupCards = () => {
 fetch(TECHNOLOGIES_URL)
   .then((res) => res.json())
   .then((cardsData) => {
-    cards = cardsData;
+    cards = cardsData.results;
     setupCards();
   })
   .catch((err) => {
@@ -93,6 +82,7 @@ fetch(TECHNOLOGIES_URL)
     console.error(err);
   });
 
+/*
 // Alternativa 2
 
 const getTechnologies = async () => {
@@ -110,8 +100,28 @@ const getTechnologies = async () => {
 
 getTechnologies();
 
+En cualquiera de ambas opciones, acabaremos modificando los datos de la API...
+
+const postReviewAsync = async (id, score) => {
+  fetch(`${TECHNOLOGIES_URL}/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      score,
+    }),
+  });
+};
+
 */
 
+/*
+const postReviewSync = (score) => {
+  cards[0].score 
+};
+*/
+/*
 const getModalBodyTemplate = (cardData) => `
   <img src="${cardData.logo}" alt="${cardData.name}" />
   <h3>Valoración de ${cardData.score.toFixed(2)} con ${cardData.reviews} reviews</h3>
@@ -122,12 +132,27 @@ const getModalBodyTemplate = (cardData) => `
     <button data-score="4">⭐️</button>
     <button data-score="5">⭐️</button>
   </div>
+  <p>Pincha en una estrella para votar!</p>
 `;
+
+const handleReview = (event) => {
+  const score = Number(event.target.getAttribute('data-score'));
+  postReviewSync(currentCard._id, score);
+}
+
+const addScoreButtonListeners = () => {
+  const scoreButtons = document.querySelectorAll('#rockTheCode-modal .review-container > button');
+
+  scoreButtons.forEach((button) => {
+    button.addEventListener('click', handleReview);
+  });
+};
 
 const setupModalData = (cardData) => {
   currentCard = cardData;
   modalTitle.innerText = cardData.name;
   modalBody.innerHTML = getModalBodyTemplate(cardData);
+  addScoreButtonListeners();
 };
 
 const handleOpenModal = (event) => {
@@ -147,9 +172,8 @@ const addModalListeners = () => {
   closeButton.addEventListener('click', () => {
     modalElement.style.display = 'none';
   });
-
 }
 
-setupCards();
 addCardsListeners();
 addModalListeners();
+*/

@@ -1,3 +1,4 @@
+/*
 export const MOCK_CARDS = [
     {
         _id: '62f2342c9f1539fa969dc249',
@@ -56,11 +57,9 @@ export const MOCK_CARDS = [
         score: 0,
     },
 ];
-
-/* En caso de usar una API real...
-
-export const API_URL = 'https://thepower-likes-system.up.railway.app/api';
-
-export const TECHNOLOGIES_URL = `${API_URL}/technologies`;
-
 */
+/* En caso de usar una API real... */
+
+export const API_URL = 'https://randomuser.me/api';
+
+export const TECHNOLOGIES_URL = `${API_URL}/?results=8&inc=login,picture&nat=es`;
